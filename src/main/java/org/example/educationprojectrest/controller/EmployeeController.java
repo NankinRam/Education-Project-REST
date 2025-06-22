@@ -37,8 +37,9 @@ public class EmployeeController {
     }
 
     @PutMapping("emp/{id}")
-    public EmployeeDto updateEmployee(@RequestBody EmployeeDto dto, @PathVariable int id){
-        return employeeService.updateEmployee(dto, id);
+    @Operation(summary = "Обновить данные сотрудника", description = "Позволяет обновить данные о сотруднике")
+    public EmployeeDto updateEmployee(@PathVariable int id, @RequestBody EmployeeDto dto){
+        return employeeService.updateEmployee(id, dto);
     }
 
     @GetMapping("/emp/{id}")

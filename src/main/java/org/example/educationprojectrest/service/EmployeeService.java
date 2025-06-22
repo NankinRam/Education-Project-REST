@@ -29,8 +29,11 @@ public class EmployeeService {
         return dto;
     }
 
-    public EmployeeDto updateEmployee(EmployeeDto dto, int id){
-        return null;
+    public EmployeeDto updateEmployee(int id, EmployeeDto dto){
+        Employee employee = employeeRepository.findById(id).get();
+        employeeMapper.update(employee, dto);
+        employeeRepository.save(employee);
+        return employeeMapper.toDto(employee);
     }
 
     public EmployeeDto getEmployee(int id) {
