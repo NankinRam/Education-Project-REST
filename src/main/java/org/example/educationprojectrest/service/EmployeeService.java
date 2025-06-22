@@ -1,5 +1,6 @@
 package org.example.educationprojectrest.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.educationprojectrest.dto.EmployeeDto;
 import org.example.educationprojectrest.entity.Employee;
@@ -8,7 +9,6 @@ import org.example.educationprojectrest.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,14 +18,18 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
 
     public EmployeeDto createEmployee(EmployeeDto dto){
-        return null;
+        Employee newEmp = employeeRepository.save(employeeMapper.toEntity(dto));
+        employeeRepository.flush();
+        return employeeMapper.toDto(newEmp);
     }
 
     public EmployeeDto deleteEmployee(int id){
-        return null;
+        EmployeeDto dto = employeeMapper.toDto(employeeRepository.findById(id).get());
+        employeeRepository.deleteById(id);
+        return dto;
     }
 
-    public EmployeeDto updateEmployee(EmployeeDto dto){
+    public EmployeeDto updateEmployee(EmployeeDto dto, int id){
         return null;
     }
 
