@@ -27,7 +27,7 @@ public class Employee {
     private String lastName;
 
     @Column(name = "gender")
-    private String gender;
+    private Character gender;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;

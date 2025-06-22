@@ -5,8 +5,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.educationprojectrest.dto.EmployeeDto;
 import org.example.educationprojectrest.service.EmployeeService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,16 +24,21 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @PostMapping("/emp")
+    @Operation(summary = "Создать сотрудника", description = "Позволяет создать нового сотрудника")
     public EmployeeDto createEmployee(@RequestBody EmployeeDto dto){
         return employeeService.createEmployee(dto);
     }
 
-    public EmployeeDto deleteEmployee(int id){
+    @DeleteMapping("/emp/{id}")
+    @Operation(summary = "Удалить сотрудника", description = "Позволяет удалить сотрудника")
+    public EmployeeDto deleteEmployee(@PathVariable int id){
         return employeeService.deleteEmployee(id);
     }
 
-    public EmployeeDto updateEmployee(EmployeeDto dto){
-        return employeeService.updateEmployee(dto);
+    @PutMapping("emp/{id}")
+    public EmployeeDto updateEmployee(@RequestBody EmployeeDto dto, @PathVariable int id){
+        return employeeService.updateEmployee(dto, id);
     }
 
     @GetMapping("/emp/{id}")
